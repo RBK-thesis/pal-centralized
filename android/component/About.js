@@ -1,6 +1,14 @@
 import * as React from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Image,
+  TouchableHighlight
+} from "react-native";
 import Constants from "expo-constants";
+import Header from "./navigation/Header";
 
 // You can import from local files
 
@@ -18,27 +26,30 @@ export default class About extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph}>About As</Text>
-        <Text style={styles.container}>
-          {" "}
-          we Are A trainee in ARB Orgnization whow aimes to create a web sit
-          that gathers information about jobs ,scholarships , training in
-          Palestine and out side of Palestine for our just especially for our
-          youth.{" "}
-        </Text>
-        {/* <Text>{JSON.stringify(navigation.getParam("itemId", "NO-ID"))}</Text>
+      <React.Fragment>
+        <Header />
+        <View style={styles.container}>
+          <Text style={styles.paragraph}>About As</Text>
+          <Text style={styles.container}>
+            {" "}
+            we Are A trainee in ARB Orgnization whow aimes to create a web sit
+            that gathers information about jobs ,scholarships , training in
+            Palestine and out side of Palestine for our just especially for our
+            youth.{" "}
+          </Text>
+          {/* <Text>{JSON.stringify(navigation.getParam("itemId", "NO-ID"))}</Text>
 
         <Text>
           {JSON.stringify(navigation.getParam("otherParam", "deualt value"))}
         </Text> */}
-        <Button
-          title="Change Tilte "
-          onPress={() => {
-            this.props.navigation.setParams({ otherParam: "Updated" });
-          }}
-        />
-      </View>
+          <Button
+            title="Change Tilte "
+            onPress={() => {
+              this.props.navigation.setParams({ otherParam: "Updated" });
+            }}
+          />
+        </View>
+      </React.Fragment>
     );
   }
 }

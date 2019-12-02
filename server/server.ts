@@ -1,6 +1,6 @@
 "use strict";
 
-import express from "express";
+import * as express from "express";
 // Create a new express application instance
 const app: express.Application = express();
 

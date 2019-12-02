@@ -1,13 +1,16 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Image, TouchableHighlight } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import Home from "./component/Home";
-import AboutUs from "./component/About";
-import AppContainer from "./component/createAppContainer";
 
+// import AppContainer from "./component/createAppContainer";
+import AppNavigator from "./component/navigation/AppNavigator";
 export default class App extends React.Component {
   render() {
-    return <AppContainer />;
+    return (
+      <React.Fragment>
+        <AppNavigator />
+      </React.Fragment>
+    );
   }
 }
