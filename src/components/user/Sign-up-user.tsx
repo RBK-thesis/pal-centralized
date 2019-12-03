@@ -5,7 +5,8 @@ import {
   Grid,
   Header,
   Message,
-  Segment
+  Segment,
+  Icon
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "../../style.css/form.css";
@@ -20,15 +21,18 @@ export default class signUpCompany extends Component {
         >
           <Grid.Column style={{ maxWidth: 550 }}>
             <Header as="h2" color="teal" textAlign="center">
-              Create a company account
+              Create an account
             </Header>
             <Form size="large">
               <Segment stacked>
+                <Button color="google plus" style={{ marginBottom: "2rem" }}>
+                  <Icon name="google" /> Sign Up using Google
+                </Button>
                 <Form.Input
                   fluid
                   icon="user"
                   iconPosition="left"
-                  placeholder="Company Name"
+                  placeholder="User Name"
                 />
                 <Form.Input
                   fluid
