@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Button, Header } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
+
 import "./Sign-up.css";
 export default class SignUp extends Component {
   render() {
