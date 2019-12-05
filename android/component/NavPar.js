@@ -1,19 +1,5 @@
 import * as React from "react";
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  TouchableHighlight,
-  StyleSheet,
-  Dropdown
-} from "react-native";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-
-// You can import from local files
-import SafeAreaView from "react-native-safe-area-view";
-import { DrawerItems } from "react-navigation-drawer";
+import { View, Text, Image, TouchableHighlight } from "react-native";
 
 // or any pure javascript modules available in npm
 // import { Card } from "react-native-paper";

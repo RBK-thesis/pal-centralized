@@ -10,11 +10,7 @@ import {
 import Constants from "expo-constants";
 import Header from "./navigation/Header";
 
-// You can import from local files
-
-// or any pure javascript modules available in npm
-// import { Card } from "react-native-paper";
-// import "react-native-gesture-handler";
+import InfoBlock from "./general/infoBlock";
 
 export default class About extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -28,6 +24,7 @@ export default class About extends React.Component {
     return (
       <React.Fragment>
         <Header />
+        <InfoBlock />
         <View style={styles.container}>
           <Text style={styles.paragraph}>About As</Text>
           <Text style={styles.container}>

@@ -1,9 +1,6 @@
 import React from "react";
-import { View, Text, Button, Image, TouchableHighlight } from "react-native";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
 
-// import AppContainer from "./component/createAppContainer";
+// import Footer from "./component/general/footer";
 import AppNavigator from "./component/navigation/AppNavigator";
 export default class App extends React.Component {
   render() {
