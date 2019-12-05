@@ -1,0 +1,9 @@
+.form {
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+  /* width: 500px !important; */
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 50% !important;
+}
