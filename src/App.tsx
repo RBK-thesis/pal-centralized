@@ -1,5 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import CompanyProfile from "./components/companyProfile/companyProfile";
 import UserProfile from "./components/UserProfile/userProfile";
@@ -18,7 +17,6 @@ const App: React.FC = () => {
         </Switch>
       </div>
     </Router>
-=======
 import "semantic-ui-css/semantic.min.css";
 import SignUp from "./components/general/Sign-up";
 
@@ -27,7 +25,7 @@ const App: React.FC = () => {
     <div className="App">
       <SignUp />
     </div>
->>>>>>> ce1603668a95d63214c4ced5c5a6ab5fd8036dda
+
   );
 };
 

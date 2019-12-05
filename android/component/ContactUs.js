@@ -1,7 +1,14 @@
 import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Image,
+  TouchableHighlight
+} from "react-native";
 import Constants from "expo-constants";
-
+import Header from "./navigation/Header";
 // You can import from local files
 
 // or any pure javascript modules available in npm
@@ -14,9 +21,12 @@ export default class Contact extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph}>Contat us</Text>
-      </View>
+      <React.Fragment>
+        <Header />
+        <View style={styles.container}>
+          <Text style={styles.paragraph}>Contat us</Text>
+        </View>
+      </React.Fragment>
     );
   }
 }
