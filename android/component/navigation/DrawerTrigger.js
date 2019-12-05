@@ -1,9 +1,10 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 // withNavigation allows components to dispatch navigation actions
 import { withNavigation } from "react-navigation";
+import { Avatar } from "react-native-elements";
 
 // DrawerActions is a specific type of navigation dispatcher
 import { DrawerActions } from "react-navigation-drawer";
@@ -17,11 +18,12 @@ class DrawerTrigger extends React.Component {
           this.props.navigation.dispatch(DrawerActions.openDrawer());
         }}
       >
-        <Image
+        <Avatar
+          size={30}
           source={{
-            uri: "../../assets/menu.png"
+            uri:
+              "https://icon-library.net/images/icon-menu-png/icon-menu-png-15.jpg"
           }}
-          style={{ width: 30, height: 30 }}
         />
       </TouchableOpacity>
     );

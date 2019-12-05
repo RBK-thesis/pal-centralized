@@ -1,58 +1,35 @@
 import * as React from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button, Image } from "react-native";
 import Constants from "expo-constants";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import Header from "./navigation/Header";
-import Footer from "./general/footer";
 
+import Header from "./navigation/Header";
+import InfoBlock from "./general/infoBlock";
 export default class Home extends React.Component {
-  static navigationOptions = {
-    headerTitle: () => {
-      return (
-        <TouchableHighlight
-          onPress={() => this.props.navigation.navigate("AboutUs")}
-        >
-          <Image
-            source={{
-              uri: "http://simpleicon.com/wp-content/uploads/cute.png"
-            }}
-            style={{ width: 30, height: 30 }}
-          />
-        </TouchableHighlight>
-      );
-    },
-    headerRight: () => <Button onPress={() => {}} title="SignIn" />
-  };
+  // static navigationOptions = {
+  //   headerTitle: () => {
+  //     return (
+  //       <TouchableHighlight
+  //         onPress={() => this.props.navigation.navigate("AboutUs")}
+  //       >
+  //         <Image
+  //           source={{
+  //             uri: "http://simpleicon.com/wp-content/uploads/cute.png"
+  //           }}
+  //           style={{ width: 30, height: 30 }}
+  //         />
+  //       </TouchableHighlight>
+  //     );
+  //   },
+  //   headerRight: () => <Button onPress={() => {}} title="SignIn" />
+  // };
   render() {
     return (
       <React.Fragment>
         <Header />
-        <View style={styles.container}>
-          <Text style={styles.paragraph}>Home page</Text>
-          <Button
-            title="Home"
-            onPress={() => this.props.navigation.navigate("AboutUs")}
-          />
-          <Text> {""}</Text>
-          <Button
-            title="Contact Us"
-            onPress={() => {
-              this.props.navigation.navigate("ContactUs");
-            }}
-          />
-          <Text> {""}</Text>
-          <Button
-            title=" About Us"
-            onPress={() => {
-              this.props.navigation.push("AboutUs", {
-                itemId: 86,
-                otherParam: "anything you want here"
-              });
-            }}
-          />
-        </View>
-        <Footer />
+        <InfoBlock />
+        <InfoBlock />
+        <InfoBlock />
+        <InfoBlock />
       </React.Fragment>
     );
   }

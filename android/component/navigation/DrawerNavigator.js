@@ -5,17 +5,21 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import Home from "../Home";
 import AboutUs from "../About";
 import ContactUs from "../ContactUS";
+import SideMenu from "../navigation/SideMenu";
 
 const DrawerNavigator = createDrawerNavigator(
   {
+    // Main: Main,
     Home: Home,
     ContactUs: ContactUs,
     AboutUs: AboutUs
   },
   {
-    drawerPosition: "left",
+    contentComponent: SideMenu,
+
+    drawerPosition: "right",
     drawerBackgroundColor: "white",
-    drawerType: "slide"
+    drawerType: "front"
   }
 );
 
