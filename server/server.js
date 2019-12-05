@@ -19,5 +19,5 @@ app.get("/", (req, res) => {
 
 //------------------------------- open the connection --------------------------------//
 app.listen(port, function() {
-  console.log("Example app listening on port 3000!");
+  console.log("Example app listening on port 3004!");
 });
