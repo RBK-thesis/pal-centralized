@@ -1,4 +1,4 @@
-const faker = require("faker"); // dummy Data
+// const faker = require("faker"); // dummy Data
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const config = require("./config/keys.js");
@@ -11,7 +11,7 @@ mongoose
     useUnifiedTopology: true
   })
   // .then(() => console.log('MongoDB Connected...'))
-  .catch(error => console.log("error"));
+  .catch(error => console.log("error from database", error));
 
 const { connection } = mongoose;
 
@@ -204,7 +204,6 @@ const random2 = function(arr) {
   return result;
 };
 
-
 // -------------------------------------save General---------------------------------
 // const save = function() {
 //   for (var i = 1; i <= 50; i++) {
@@ -391,4 +390,3 @@ module.exports.majors = majors;
 module.exports.types = types;
 module.exports.addresses = addresses;
 module.exports.eduLevels = eduLevels;
-

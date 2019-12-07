@@ -6,6 +6,7 @@ import Home from "../Home";
 import AboutUs from "../About";
 import ContactUs from "../ContactUS";
 import SideMenu from "../navigation/SideMenu";
+import LogIn from "../general/LogIn";
 
 const DrawerNavigator = createDrawerNavigator(
   {
