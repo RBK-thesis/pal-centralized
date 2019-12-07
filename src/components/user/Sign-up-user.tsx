@@ -55,10 +55,7 @@ export default class signUpCompany extends Component {
               </Segment>
             </Form>
             <Message>
-              Do you have an account ?
-              <Link to="login">
-                <a href="#">Login</a>
-              </Link>
+              Do you have an account ?<Link to="login">Login</Link>
             </Message>
           </Grid.Column>
         </Grid>
