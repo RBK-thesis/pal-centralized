@@ -3,22 +3,31 @@ const port = process.env.PORT || 3004;
 const bodyParser = require("body-parser");
 const CR = require("crypto");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 var app = express();
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json());
+
 app.use(cookieParser());
 
 //------------- create the route server by redirecting to the routefolder -----------//
 app.use(require("./Routs"));
-//----------dont Write Your Routs here Write it inside the Rout Index.js------------//
+// app.use(express.bodyParser());
 
+//----------dont Write Your Routs here Write it inside the Rout Index.js------------//
+app.post("*", (res, req) => {
+  console.log("body: ", req.body);
+  console.log("query: ", req.query);
+});
 //-----------------------the request to the main server route-----------------------//
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
-  res.send("hhi");
+  res.sen("hiiiiiiiii");
 });
 
 //------------------------------- open the connection --------------------------------//

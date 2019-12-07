@@ -15,7 +15,7 @@ function AuthenticatToken(req, res, next) {
   //---------------------------------------------//
   // ----- get the Token from the header --------//
   //---------------------------------------------//
-  const AuthHearder = AuthHearder && req.headers["authorization"];
+  const AuthHearder = AuthHearder && req.headers["xxct---authorization---ctxx"];
   const token = AuthHearder.split(" ")[1];
 
   //-------------------------------------------//
@@ -38,5 +38,31 @@ function AuthenticatToken(req, res, next) {
   });
 }
 
+function AuthenticatTokeninUserInterface() {
+  //----------------------------------------------//
+  //-------Taking the Token From localstorage ----//
+  //-------at client side-------------------------//
+  //---------------------------------------------//
+  var token = localStorage.getItem("ValiedTOKEN");
+
+  //-------------------------------------------//
+  //---if there is no token send not found-----//
+  //-------------------------------------------//
+  if (token === null) return -1;
+
+  //---------------------------------------------------------//
+  //---varify the token user if it has the right  secret-----//
+  //---------------------------------------------------------//
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
+    if (error) {
+      return 0;
+    }
+    //---------------------------------------------------------//
+    //---if not just send the user info back to the route -----//
+    //---------------------------------------------------------//
+    return user;
+  });
+}
+module.exports.AuthenticatTokeninUserInterface = AuthenticatTokeninUserInterface;
 module.exports.generateAccessToken = generateAccessToken;
 module.exports.AuthenticatToken = AuthenticatToken;
