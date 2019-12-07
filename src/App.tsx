@@ -1,11 +1,11 @@
 import React from "react";
 import "semantic-ui-css/semantic.min.css";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignUpGeneral from "./components/general/Sign-up-general";
 import SignUpCompany from "./components/company/Sign-up-company";
 import SignUpUser from "./components/user/Sign-up-user";
 import Login from "./components/general/Login";
-import MainPageHeader from "./components/general/Home-page-header";
+// import MainPageHeader from "./components/general/Home-page-header";
 import MainPageFooter from "./components/general/Home-page-footer";
 import MainPagePosts from "./components/general/Home-page-posts";
 import Search from "./components/general/Search";

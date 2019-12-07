@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { Container, Dropdown, Image, Menu, Button } from "semantic-ui-react";
+import { Container, Dropdown, Image, Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "../../style.css/form.css";
 import UserFavoriteList from "./Favorite-user-list";
 
-const LogoImg = () => (
-  <Image
-    src="https://react.semantic-ui.com/images/wireframe/square-image.png"
-    size="medium"
-    circular
-  />
-);
+// const LogoImg = () => (
+//   <Image
+//     src="https://react.semantic-ui.com/images/wireframe/square-image.png"
+//     size="medium"
+//     circular
+//   />
+// );
 
 const trigger = (
   <span>

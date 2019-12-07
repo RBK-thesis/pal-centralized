@@ -1,14 +1,5 @@
 import React, { Component } from "react";
-import {
-  Container,
-  Divider,
-  Grid,
-  Header,
-  Image,
-  List,
-  Segment
-} from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Container, Grid, Header, Segment } from "semantic-ui-react";
 import "../../style.css/form.css";
 export default class HomePageFooter extends Component {
   render() {

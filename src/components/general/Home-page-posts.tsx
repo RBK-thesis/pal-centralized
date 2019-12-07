@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Grid, Image, Item, Container, Header } from "semantic-ui-react";
+import { Grid, Item } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./General.css";
 import { useSelector, useDispatch } from "react-redux";
