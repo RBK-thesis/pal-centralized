@@ -102,80 +102,6 @@ router.get("/user", (req, res) => {
   });
 });
 
-//------------------------------------------##### SignUp Section #####------------------------------------------------//
-router.post(
-  "/user/signUp",
-  [check("email").isEmail(), check("password").isLength({ min: 6 })],
-  async (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    const errors = validationResult(req);
-
-    //------------------------------------------------------//
-    //------if the email or password is as we want this-----//
-    //------is the error that will be shown-----------------//
-    //----------- --------{---------------------------------//
-    //---------------------- "errors": [{-------------------//
-    //---------------------- "location": "body",------------//
-    //------------------------ "msg": "Invalid value",------//
-    //-------------------------  "param": "username"--------//
-    //---------------------- }]-----------------------------//
-    //---------------------}--------------------------------//
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-
-    const hashpassword = "";
-    try {
-      //-------------------------------//
-      //----- hashing Password---------//
-      //-------------------------------//
-      hashpassword = await bcryptjs.hash(req.body.passowrd, 10);
-    } catch {
-      //--------------------------------//
-      //-An Error Accurede while cheking-//
-      //--------------------------------//
-      console.log(req.body.data, "passsword");
-      res.status(500).send();
-    }
-
-    //--------------------------------------------------//
-    //--saving User To DataBase with Hashed Password ---//
-    //--------------------------------------------------//
-
-    var DataBaseUser;
-    db.User.find({ password: req.body.passowrd }, (error, user) => {
-      if (error) {
-        res.status(500).send();
-      }
-    }).then(user => {
-      DataBaseUser = user;
-      //-----------------------------------------------------//
-      //--------if the user email exist ---------------------//
-      //--------then tell it to sing up wit another mail-----//
-      if (DataBaseUser !== null) {
-        res.status(404).send("user email is already exist ");
-      }
-    });
-    db.save(DataBaseUser);
-    //-|------------------------------------------------//
-    //-|--> do the saving Function and send result -----//
-    //------------if user is saved generate a token ----//
-    //--------------------------------------------------//
-
-    //------------------------------------//
-    //--------create a Token for user-----//
-    //------------------------------------//
-    const acsessToken = Auth.generateAccessToken(DataBaseUser);
-    res.json({ acsessToken });
-
-    //-------------------------------------------//
-    //-------------if user is not saved ---------//
-    //------------return a 500 to server --------//
-  }
-);
-
 //------------------------------------------##### signIn Section #####------------------------------------------------//
 
 router.post("/user/signIn", async (req, res) => {
@@ -202,7 +128,6 @@ router.post("/user/signIn", async (req, res) => {
   //--------------------------------//
   //--- check if the user Exist ----//
   //--------------------------------//
-  console.log(user, "the use");
   if (user === null) {
     console.log("User Is not Registered");
     return res.status(400).send("cannot find the user");
@@ -212,17 +137,6 @@ router.post("/user/signIn", async (req, res) => {
     //--------------------------------//
 
     try {
-      // await bcryptjs.compare(
-      //   req.body.passowrd,
-      //   await bcryptjs.hash(req.body.passowrd, 10),
-      //   function(err, isMatch) {
-      //     if (err) {
-      //       console.log("err");
-      //     } else {
-      //       console.log(isMatch, "form first one");
-      //     }
-      //   }
-      // );
       console.log(await bcryptjs.hash(req.body.passowrd, 10));
       await bcryptjs.compare(req.body.passowrd, user.password, function(
         err,
@@ -237,7 +151,7 @@ router.post("/user/signIn", async (req, res) => {
           //--------------------------------//
           // res.status(201).send("Success")//
 
-          console.log("insi the compar");
+          console.log("insid the compar");
 
           //-------------------------------------//
           //--------create a Token for user------//
@@ -273,5 +187,128 @@ router.post("/user/signIn", async (req, res) => {
   //--- this is the request user----//
   //--------------------------------//
 });
+
+//------------------------------------------##### SignUp Section #####------------------------------------------------//
+router.post(
+  "/user/signUp",
+  [check("email").isEmail(), check("passowrd").isLength({ min: 6 })],
+  async (req, res, next) => {
+    console.log(req.body.email, req.body.passowrd);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    const errors = validationResult(req);
+
+    //------------------------------------------------------//
+    //------if the email or password is as we want this-----//
+    //------is the error that will be shown-----------------//
+    //----------- --------{---------------------------------//
+    //---------------------- "errors": [{-------------------//
+    //---------------------- "location": "body",------------//
+    //------------------------ "msg": "Invalid value",------//
+    //-------------------------  "param": "username"--------//
+    //---------------------- }]-----------------------------//
+    //---------------------}--------------------------------//
+
+    if (!errors.isEmpty()) {
+      console.log("inside if error are not empty ");
+      return res
+        .status(422)
+        .json({ errors: errors.array() })
+        .end();
+    }
+
+    const hashpassword = "";
+    const id = Date.now();
+    // console.log(id);
+    try {
+      //-------------------------------//
+      //----- hashing Password---------//
+      //-------------------------------//
+
+      await bcryptjs.hash(req.body.passowrd, 10).then(hassed => {
+        console.log(hassed, "Hashed then");
+
+        var hassedPass = hassed;
+        // hashpassword = hassed;
+        // console.log(hashpassword, "hhhhh");
+        //--------------------------------------------------//
+        //--saving User To DataBase with Hashed Password ---//
+        //--------------------------------------------------//
+
+        db.User.findOne({ email: req.body.email }, (error, user) => {
+          if (error) {
+            console.log("email is Exist");
+            res.status(500).send("An Error Accured During Processing Data ");
+          }
+        }).then(async user => {
+          //-----------------------------------------------------//
+          //--------if the user email exist ---------------------//
+          //--------then tell it to sing up wit another mail-----//
+          //-----------------------------------------------------//
+          console.log(user, "user");
+
+          if (user !== null) {
+            console.log("user  exist");
+            res.status(404).send("user email is already exist ");
+          } else {
+            console.log(hassedPass, "hassedPass");
+
+            db.General.create(
+              {
+                Name: req.body.name,
+                id: id,
+                type: req.body.type,
+                email: req.body.email,
+                password: hassedPass
+              },
+              (error, result) => {
+                //--------------------------------------------------//
+                //----------------- If User did not saved ----------//
+                //----------------- then error message -------------//
+                //--------------------------------------------------//
+                if (error) {
+                  res
+                    .status(500)
+                    .send("User is Not Saved .. PLZ Try again Later");
+                  res.end();
+                }
+                if (result) {
+                  console.log(result);
+                  console.log(result, "result");
+                  const acsessToken = Auth.generateAccessToken({
+                    email: req.body.email,
+                    name: req.body.Name
+                  });
+                  return res
+                    .status(201)
+                    .send({
+                      acsessToken: acsessToken,
+                      user: {
+                        id: id,
+                        Name: req.body.Name,
+                        email: req.body.email,
+                        type: req.body.type
+                      }
+                    })
+                    .end();
+                }
+              }
+            );
+          }
+        });
+      });
+      //// after Hasing we will Insert A new User to Users///////
+    } catch {
+      //--------------------------------//
+      //-An Error Accurede while cheking-//
+      //--------------------------------//
+      console.log(req.body.passowrd, "passsword");
+      res
+        .status(500)
+        .send("An Error has Accured While Saving Data Plz Try Again")
+        .end();
+    }
+  }
+);
 
 module.exports = router;

@@ -46,6 +46,67 @@ const seatchTitle = function(str, cb) {
 };
 // seatchTitle("sect", (posts) => {console.log('hahahahaha:  ', posts.length, 'like: ', posts[0].id)});
 
+// --------------------- getFollowersEmails(the actual users's emails) of a company --------------------- \\
+const getFollowersE = function(compId, cb) {
+  db.User.find({},async (err, users) => {
+    let result = '';
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].followingList.includes(compId)) {
+        await db.General.find({}, (err, data) => {
+          for (let j = 0; j < data.length; j++) {
+            if (data[j].id === users[i].id) {
+              result += data[j].email+ ' , ';
+            }
+          }
+          // cb(result);
+        });
+      }
+    }
+    cb(result.slice(0, -2));
+  });
+};
+// getFollowersE(5, (emails) => {console.log('hahahahaha:  ', emails)});
+
+// const getFollowersE = function(compId, cb) {
+//   db.User.find({}, (err, users) => {
+//     // let result = '';
+//     for (let i = 0; i < users.length; i++) {
+//       if (users[i].followingList.includes(compId)) {
+//         db.General.find({id: users[i].id}, (err, data) => {
+//           console.log('mail: ',data[0].email);
+//           // cb(data[0].email);
+//         });
+//       }
+//     }
+//     // cb(result);
+//   });
+// };
+// getFollowersE(5, (emails) => {console.log('hahahahaha:  ', emails)});
+
+
+// --------------------- searching byAll --------------------- \\
+
+const search = function(type, major, cb, str) {
+  db.Post.find({ major: major, type: type }, function(err, posts) {
+    if (err) {
+      console.log("error in finding posts.");
+    } else {
+      if (str) {
+        let result = [];
+        for (let i = 0; i < posts.length; i++) {
+          if (posts[i].title.includes(str)) {
+            result.push(posts[i]);
+          }
+        }
+        cb(result);
+      } else {
+        cb(posts);
+      }
+    }
+  });
+};
+// search("jop", "Business", (posts) => {console.log(posts.length)}, "Rer");
+
 // --------------------- for updating the passwords into hashed passwords --------------------- \\
 // const x = async function(ps) {
 //   var hashed = await bcryptjs.hash(ps, 10);
@@ -79,7 +140,8 @@ const seatchTitle = function(str, cb) {
 module.exports.searchType = searchType;
 module.exports.searchMajor = searchMajor;
 module.exports.seatchTitle = seatchTitle;
-
+module.exports.getFollowersE = getFollowersE;
+module.exports.search = search;
 
 // x("BairWInkwHp46TI");
 // x("JULLGEGHtzF70F0");

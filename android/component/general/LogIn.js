@@ -4,28 +4,43 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import EValidator from "email-validator";
 import $ from "jquery";
-import {
-  Text,
-  TextInput,
-  View,
-  StyleSheet,
-  Button,
-  TouchableHighlight
-} from "react-native";
+import { Text, View, StyleSheet, Button } from "react-native";
 import { SocialIcon, Card, Input } from "react-native-elements";
+import { AsyncStorage } from "react-native";
+import SignUp from "../general/SignUp";
 
 export default class LogIn extends React.Component {
+  static navigationOptions = {
+    title: "Welcome"
+  };
   constructor(props) {
     super(props);
     this.state = {
+      goToSigUp: false,
       email: "",
       password: "",
-      validat: true
+      validat: false,
+      signedIn: false,
+      accessToken: "",
+      company: false,
+      continue: false
     };
-    // HandelLoginByEmail = this.HandelLoginByEmail.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.nav;
+    // try {
+    //   var token = await AsyncStorage.getItem("acsessToken");
+    //   if (token !== null) {
+    //     console.log("hi")
+    //   }
+    // }catch{
+    // }
+  }
+  doSignIn(userid) {
+    this.props.signIn(userid);
   }
   HandelLoginByEmail(e) {
-    // console.log("username", this.state.username, "password"),
     this.state.password;
     if (this.state.validat) {
       var that = this;
@@ -34,8 +49,25 @@ export default class LogIn extends React.Component {
           email: this.state.email,
           passowrd: this.state.password
         })
-        .then(function(response) {
+        .then(async function(response) {
           console.log(response.data, "axios");
+          that.setState({
+            signedIn: true
+          });
+          try {
+            await AsyncStorage.setItem(
+              "acsessToken",
+              JSON.stringify(response.data.acsessToken)
+            );
+            await AsyncStorage.setItem(
+              "user",
+              JSON.stringify(response.data.user)
+            );
+          } catch {
+            console.log("error");
+          }
+          console.log(response.data.user, "iam user");
+          that.doSignIn(response.data.user["id"]);
         })
         .catch(function(error) {
           console.log(error, "axios");
@@ -49,7 +81,6 @@ export default class LogIn extends React.Component {
 
   HandelEmailChang(e) {
     if (!EValidator.validate(e)) {
-      // $("#TV").text = "this is not a Valied Email";
       this.setState({ validat: false });
     } else {
       this.setState({
@@ -61,34 +92,46 @@ export default class LogIn extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Card containerStyle={styles.container} title="LogIn Page">
-          <Input
-            onChangeText={this.HandelEmailChang.bind(this)}
-            placeholder="  Insert Your Email..."
-            leftIcon={<Icon name="user" size={24} color="#cf3c1f" />}
-          />
-          <Text nativeID="VT"></Text>
-          <Input
-            onChangeText={this.PasswordChang.bind(this)}
-            secureTextEntry
-            numberOfLines={1}
-            placeholder="  Insert Your Password ..."
-            leftIcon={<Icon name="lock" size={24} color="#cf3c1f" />}
-          />
+        {!this.state.goToSigUp ? (
+          <View style={styles.container}>
+            <Card containerStyle={styles.container} title="LogIn Page">
+              <Input
+                onChangeText={this.HandelEmailChang.bind(this)}
+                placeholder="  Insert Your Email..."
+                leftIcon={<Icon name="user" size={24} color="#cf3c1f" />}
+              />
+              <Text nativeID="VT"></Text>
+              <Input
+                onChangeText={this.PasswordChang.bind(this)}
+                secureTextEntry
+                numberOfLines={1}
+                placeholder="  Insert Your Password ..."
+                leftIcon={<Icon name="lock" size={24} color="#cf3c1f" />}
+              />
 
-          <Button
-            title="Login"
-            type="outline"
-            onPress={this.HandelLoginByEmail.bind(this)}
-          />
-        </Card>
-        <Text style={styles.paragraph}> OR</Text>
-        <SocialIcon
-          style={styles.cardCnt}
-          title="Sign In With google"
-          button
-          type="google"
-        />
+              <Button
+                title="Login"
+                type="outline"
+                onPress={this.HandelLoginByEmail.bind(this)}
+              />
+              <Text style={styles.paragraph}> OR</Text>
+              <SocialIcon
+                style={styles.cardCnt}
+                title="Sign In With google"
+                button
+                type="google"
+              />
+              <Button
+                title={"Or sign Up"}
+                onPress={() => this.setState({ goToSigUp: true })}
+              ></Button>
+            </Card>
+          </View>
+        ) : (
+          <View>
+            <SignUp />
+          </View>
+        )}
       </View>
     );
   }

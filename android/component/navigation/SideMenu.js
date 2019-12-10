@@ -3,7 +3,9 @@ import React, { Component } from "react";
 import { Avatar, Card, Button } from "react-native-elements";
 import { NavigationActions } from "react-navigation";
 import axios from "axios";
-import { ScrollView, Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
+import { AsyncStorage } from "react-native";
+
 // const db = require("../../DataBase/db");
 
 class SideMenu extends Component {
@@ -12,6 +14,7 @@ class SideMenu extends Component {
     this.state = {
       user: {}
     };
+    this.Loggingout = this.Loggingout.bind(this);
   }
   navigateToScreen = route => () => {
     const navigateAction = NavigationActions.navigate({
@@ -20,21 +23,19 @@ class SideMenu extends Component {
     this.props.navigation.dispatch(navigateAction);
   };
 
-  componentDidMount() {
-    var that = this;
-    axios
-      .get("http://127.0.0.1:3004/user/?id=1")
-      .then(function(response) {
-        console.log(response.data.user[0]);
-        that.setState({
-          user: response.data.user[0]
-        });
-        console.log(that.state.user);
-      })
-      .catch(function(error) {
-        console.log(error);
+  Loggingout() {}
+  async getData() {
+    try {
+      var that = this;
+      await AsyncStorage.getItem("user").then(user => {
+        that.setState({ user: JSON.parse(user) });
       });
-    console.log(this.state.user);
+    } catch {
+      console.log("error");
+    }
+  }
+  componentDidMount() {
+    this.getData();
   }
 
   render() {
@@ -49,7 +50,7 @@ class SideMenu extends Component {
               source={{
                 uri:
                   this.state.user.logo ||
-                  "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
+                  "https://bim-and-beyond.eu/wp-content/uploads/2018/08/unknown.png"
               }}
               showEditButton
             />
@@ -63,13 +64,13 @@ class SideMenu extends Component {
         </Card>
 
         <View style={styles.container}>
-          <Button
+          {/* <Button
             title="Home"
             type="clear"
             onPress={this.navigateToScreen("ContactUs")}
           >
             Home
-          </Button>
+          </Button> */}
 
           <Button
             title="AboutUs"
@@ -86,7 +87,7 @@ class SideMenu extends Component {
           <Button
             title="Logout"
             type="solid"
-            onPress={this.navigateToScreen("Home")}
+            onPress={this.navigateToScreen("LogOut")}
           >
             Logout
           </Button>
