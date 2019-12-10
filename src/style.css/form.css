@@ -1,0 +1,13 @@
+.center-form {
+  position: absolute;
+  width: 30%;
+  height: 40%;
+  margin: auto;
+  padding: 3rem;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 1.2px solid black;
+  border-radius: 3px;
+}

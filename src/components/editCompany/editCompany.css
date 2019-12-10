@@ -1,0 +1,19 @@
+.input {
+  padding-left: auto !important;
+  padding-right: auto !important;
+  /* margin-top: 40px !important; */
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 70% !important;
+}
+
+.updateBTW {
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+  /* width: 500px !important; */
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 30% !important;
+}

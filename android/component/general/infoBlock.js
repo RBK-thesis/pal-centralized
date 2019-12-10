@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 import {
   Text,
   View,
@@ -9,43 +10,35 @@ import {
 import { Avatar, Card } from "react-native-elements";
 
 import Header from "../navigation/Header";
+import InfoCard from "./infoCard";
 
 export default class infoBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        name: "my name is iiii",
-        Discription: "this is my description part ",
-        imgUrl:
-          "https://1.bp.blogspot.com/-J2aei9p3rds/UvIGDQr-iJI/AAAAAAAAAnM/f30mknQqH3A/s1600/water_splash_png_by_starlaa1-d51fsnt.png"
-      }
+      posts: []
     };
   }
+
+  componentDidMount() {
+    var that = this;
+    axios
+      .get("http://127.0.0.1:3004/articles")
+      .then(function(response) {
+        console.log(response.data, "axios");
+        that.setState({ posts: response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    // console.log(this.state.user);
+  }
   render() {
-    return (
-      <Card title={this.state.data.name}>
-        <View style={{ flex: 1, flexDirection: "column" }}>
-          <Text style={styles.container}> {this.state.data.Discription}</Text>
-          <Avatar
-            rounded
-            source={{
-              uri:
-                "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
-            }}
-          />
-
-          {/* <Header
-            placement="left"
-            leftComponent={{ icon: "menu", color: "#fff" }}
-            centerComponent={{ text: "MY TITLE", style: { color: "#fff" } }}
-            rightComponent={{ icon: "home", color: "#fff" }}
-          /> */}
-
-          <Text style={styles.paragraph}></Text>
-        </View>
-      </Card>
-    );
+    console.log(this.state.posts);
+    var items = this.state.posts.map((item, i) => {
+      return <InfoCard key={i} post={item}></InfoCard>;
+    });
+    return <View>{items}</View>;
   }
 }
 

@@ -4,15 +4,17 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 
 import Home from "../Home";
 import AboutUs from "../About";
-import ContactUs from "../ContactUS";
+// import ContactUs from "../ContactUS";
 import SideMenu from "../navigation/SideMenu";
+import LogOut from "../LogOut";
 
 const DrawerNavigator = createDrawerNavigator(
   {
-    // Main: Main,
+    // Main: App,
     Home: Home,
-    ContactUs: ContactUs,
-    AboutUs: AboutUs
+    // ContactUs: ContactUs,
+    AboutUs: AboutUs,
+    LogOut: LogOut
   },
   {
     contentComponent: SideMenu,

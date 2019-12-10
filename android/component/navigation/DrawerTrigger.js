@@ -11,6 +11,7 @@ import { DrawerActions } from "react-navigation-drawer";
 
 class DrawerTrigger extends React.Component {
   render() {
+    console.log(this.props);
     return (
       <TouchableOpacity
         style={styles.trigger}
