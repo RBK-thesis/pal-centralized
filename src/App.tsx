@@ -14,6 +14,9 @@ import MainPageFooter from "./components/general/Home-page-footer";
 import MainPagePosts from "./components/general/Home-page-posts";
 import Search from "./components/general/Search";
 import UserPageHeader from "./components/user/User-page-header";
+import UserHome from "./components/userHome/userHome";
+import CompanyHome from "./components/companyHome/companyHome";
+import PostCompany from "./components/postCompany/postCompany";
 
 // const App: React.FC = () => {
 //   return (
@@ -47,6 +50,9 @@ const App: React.FC = () => {
           <Route path="/companyprofile" component={CompanyProfile} />
           <Route path="/useredit" component={EditUser} />
           <Route path="/companyedit" component={EditCompany} />
+          <Route path="/userhome" component={UserHome} />
+          <Route path="/companyhome" component={CompanyHome} />
+          <Route path="/postcompany" component={PostCompany} />
         </Switch>
         <MainPageFooter />
       </div>

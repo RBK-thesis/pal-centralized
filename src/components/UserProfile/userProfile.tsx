@@ -1,55 +1,33 @@
-//------------------------------User Profile Page -----------------------------------------
-
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../UserProfile/userProfile.css";
 import { Link } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import { Button, Card, Image } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
-
 import { fetchUser } from "../../actions";
-// import PropTypes from 'prop-types';
 
 const UserProfile = (props: any) => {
   const users: any = useSelector((state: any) => state.users);
   const dispatch = useDispatch();
-
-  // componentWillMount() {
-  //   this.props.fetchUser();
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.newUser) {
-  //     this.props.users.unshift(nextProps.newPost);
-  //   }
-  // }
-
   useEffect(() => {
     dispatch(fetchUser(3));
   }, []);
-  // console.log("users");
-  // console.log(users);
-  // const userItems = this.props.users.map(user => (
-  //   <div key={user.id}>
-  //     <h3>{user.gender}</h3>
-  //     {/* <p>{user.body}</p> */}
-  //   </div>
-  // )
+
+  const user = users.items.user ? users.items.user[0] : "";
+  // console.log(user.Name);
+  console.log(users.items.user);
+
   return (
     <Card className="body">
       <Card.Content>
         <br></br>
         <br></br>
-        <Image
-          floated="left"
-          size="small"
-          src="https://react.semantic-ui.com/images/avatar/large/steve.jpg"
-        />
+        <Image floated="left" size="small" src={user.logo} />
         <br></br>
         <br></br>
         <br></br>
-        <Card.Header>userItems</Card.Header>
+        <Card.Header>{user.Name}</Card.Header>
 
         <Card.Description>
           <br></br>
@@ -59,9 +37,7 @@ const UserProfile = (props: any) => {
           <br></br>
           <br></br>
           <Card.Header className="header"> Email </Card.Header>{" "}
-          <p className="pargraph">
-            Pellentesque habitant morbi tristique senectus et netus et
-          </p>
+          <p className="pargraph">{user.email}</p>
           <br></br>
           <br></br>
           <Card.Header className="header"> Gender </Card.Header>

@@ -1,4 +1,4 @@
-import { FETCH_USERS } from "../actions/types";
+import { FETCH_COMPANY } from "../actions/types";
 
 const initialState = {
   items: [],
@@ -6,8 +6,10 @@ const initialState = {
 };
 
 export default function(state = initialState, action: any) {
+  // console.log("inside reducer");
   switch (action.type) {
-    case FETCH_USERS:
+    case FETCH_COMPANY:
+      // console.log("reducer", initialState.items);
       return {
         ...state,
         items: action.payload
