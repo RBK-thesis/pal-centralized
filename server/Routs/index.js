@@ -3,12 +3,166 @@ const router = express.Router();
 const bcryptjs = require("bcryptjs");
 const db = require("../../DataBase/db");
 const bodyParser = require("body-parser");
+const multer = require("multer");
+const path = require("path");
+const searchApi = require("../../API/search");
 
 const jwt = require("jsonwebtoken");
 const Auth = require("../Auth/Auth");
 const { check, validationResult } = require("express-validator");
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
+
+//----------------------------------######3 Processing file and picture #####-----------------------------------------------//
+router.post("/user/upload", (req, res) => {
+  console.log("here am i ");
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  if (req.body) {
+    console.log(req.body.file);
+    var d = req.body;
+
+    var base64Data = req.body.file.replace(/^data:image\/png;base64,/, "");
+
+    require("fs").writeFile("out.jpeg", base64Data, "base64", function(err) {
+      console.log(err);
+    });
+    console.log("no file Uploaded");
+    console.log(req.body.fileType, "hiiii");
+  } else {
+    console.logo("we have a file");
+  }
+});
+//---------------------------Get API Values ----------------------------------------------------------------------//
+router.get("/articles/API", (req, res) => {
+  res
+    .send({ Major: searchApi.majors, Types: searchApi.types })
+    .status(2001)
+    .end();
+});
+
+//--------------------------------### getting Info by Search #####------------------------------------------------//
+router.get("/articles/search", (req, res) => {
+  var param = req.query;
+  var keys = Object.keys(param);
+  //---------------------------------------- Search using all avaliable options---------------------------//
+
+  if (keys.includes("enterQuery") && keys.length == 3) {
+    searchApi.search(req.query, (error, result) => {
+      if (error) {
+        res
+          .status(500)
+          .send("An Erorr Accured During Processing")
+          .end();
+      } else {
+        res
+          .status(401)
+          .send(result)
+          .end();
+      }
+    });
+  } else if (keys.length == 2 && keys.includes("enterQuery")) {
+    if (keys.includes("major")) {
+      searchApi.searchMajor(req.query.major, (error, result) => {
+        if (error) {
+          res
+            .status(500)
+            .send("An Erorr Accured During Processing")
+            .end();
+        } else {
+          var SearchResult = searchApi.seatchTitleArr(
+            result,
+            req.query.enterQuery
+          );
+          res
+            .status(401)
+            .send(SearchResult)
+            .end();
+        }
+      });
+    } else {
+      if (keys.includes("type")) {
+        searchApi.searchMajor(req.query.type, (error, result) => {
+          if (error) {
+            res
+              .status(500)
+              .send("An Erorr Accured During Processing")
+              .end();
+          } else {
+            var SearchResult = searchApi.seatchTitleArr(
+              result,
+              req.query.enterQuery
+            );
+            res
+              .status(401)
+              .send(SearchResult)
+              .end();
+          }
+        });
+      }
+    }
+  } else if (keys.length === 1) {
+    if (keys[0] === "major") {
+      searchApi.searchMajor(req.query.major, (error, result) => {
+        if (error) {
+          res
+            .status(500)
+            .send("An Erorr Accured During Processing")
+            .end();
+        } else {
+          res
+            .status(401)
+            .send(result)
+            .end();
+        }
+      });
+    } else if (keys[0] === "enterQuery") {
+      searchApi.seatchTitle(req.query.enterQuery, (error, result) => {
+        if (error) {
+          res
+            .status(500)
+            .send("An Erorr Accured During Processing")
+            .end();
+        } else {
+          res
+            .status(401)
+            .send(result)
+            .end();
+        }
+      });
+    } else if (keys[0] === "type") {
+      searchApi.searchType(req.query.type, (error, result) => {
+        if (error) {
+          res
+            .status(500)
+            .send("An Erorr Accured During Processing")
+            .end();
+        } else {
+          res
+            .status(401)
+            .send(result)
+            .end();
+        }
+      });
+    }
+  }
+});
+
+//-------------------------------------#### get filtered Articals ## -------------------------------------------------
+router.get("/articles/filtered", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  console.log("req", req.query);
+  db.Post.find(req.query, (error, post) => {
+    if (error) {
+      res.status(500).send("an error accured while connecting to data");
+    }
+  }).then(post => {
+    res.status(201).send(post);
+  });
+});
+//-------------------------------------------##### get all Post Rout Nativ #####------------------------------------------------------------//
 
 //-------------------------------------------##### get all Post in specific type  #####------------------------------------------------------------//
 // router.get("/articles/filter/:type", (req, res) => {
@@ -26,6 +180,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 //     });
 // });
 // //-------------------------------------------##### get all Post Rout Nativ #####------------------------------------------------------------//
+
 router.get("/articles", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");

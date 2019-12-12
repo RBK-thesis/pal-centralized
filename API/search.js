@@ -11,7 +11,40 @@ const searchType = function(type, cb) {
     }
   });
 };
+
+const majors = [
+  "Achitecture",
+  "Art",
+  "Business",
+  "Media",
+  "Computer",
+  "Science",
+  "Medicine",
+  "Languages",
+  "Law",
+  "Philosophy",
+  "Political",
+  "Tourisim",
+  "Sports",
+  "History",
+  "Engineerong",
+  "IT",
+  "Education",
+  "Literature"
+];
+const types = ["scholarShip", "jop", "training"];
+
+const seatchTitleArr = function(posts, str) {
+  let result = [];
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i].title.includes(str)) {
+      result.push(posts[i]);
+    }
+  }
+  return result;
+};
 // searchType("scholarShip", (posts) => {console.log(posts.length)});
+
 
 // --------------------- searching by majors --------------------- \\
 
@@ -24,10 +57,6 @@ const searchMajor = function(major, cb) {
     }
   });
 };
-// searchMajor("Business", (posts) => {console.log(posts.length)});
-// for (let i=0; i<db.majors.length; i++) {
-//   searchMajor(db.majors[i], (posts) => {console.log(db.majors[i], ': ', posts.length)});
-// }
 
 // --------------------- searching by title --------------------- \\
 const seatchTitle = function(str, cb) {
@@ -41,7 +70,6 @@ const seatchTitle = function(str, cb) {
     cb(result);
   });
 };
-// seatchTitle("sect", (posts) => {console.log('hahahahaha:  ', posts.length, 'like: ', posts[0].id)});
 
 // --------------------- getFollowersEmails(the actual users's emails) of a company --------------------- \\
 const getFollowersE = function(compId, cb) {
@@ -62,6 +90,7 @@ const getFollowersE = function(compId, cb) {
     cb(result.slice(0, -2));
   });
 };
+
 // getFollowersE(5, (emails) => {console.log('hahahahaha:  ', emails)});
 
 // const getFollowersE = function(compId, cb) {
@@ -80,7 +109,10 @@ const getFollowersE = function(compId, cb) {
 // };
 // getFollowersE(5, (emails) => {console.log('hahahahaha:  ', emails)});
 
+
 // --------------------- searching byAll --------------------- \\
+
+// if(keys.)
 
 const search = function(type, major, cb, str) {
   db.Post.find({ major: major, type: type }, function(err, posts) {
@@ -101,91 +133,21 @@ const search = function(type, major, cb, str) {
     }
   });
 };
-// search("jop", "Business", (posts) => {console.log(posts.length)}, "Rer");
 
-// --------------------- for updating the passwords into hashed passwords --------------------- \\
-// const x = async function(ps) {
-//   var hashed = await bcryptjs.hash(ps, 10);
-//   return hashed;
-// };
-// // x('sleepy').then((ps) => {console.log(ps)});
-
-// const ps = function(cb) {
-//   db.General.find({}, (err, posts) => {
-//     let result = [];
-//     for (let i = 0; i < posts.length; i++) {
-//       result.push(posts[i].password);
-//     }
-//     cb(result);
-//   });
-// };
-
-// ps(pss => {
-//   for (let i = 0; i < pss.length; i++) {
-//     x(pss[i]).then(async pass => {
-//       await db.General.findOneAndUpdate(
-//         { password: pss[i] },
-//         { password: pass },
-//         { new: true, useFindAndModify: false }
-//       );
-//       console.log(pass)
-//     });
-//   }
-// });
+const seatchTitleArr = function(posts, str) {
+  let result = [];
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i].title.includes(str)) {
+      result.push(posts[i]);
+    }
+  }
+  return result;
+};
 
 module.exports.searchType = searchType;
 module.exports.searchMajor = searchMajor;
 module.exports.seatchTitle = seatchTitle;
 module.exports.getFollowersE = getFollowersE;
 module.exports.search = search;
-
-// x("BairWInkwHp46TI");
-// x("JULLGEGHtzF70F0");
-// x("uhfUCXugiJR2X6f");
-// x("UtoueLCTurVl_Pb");
-// x("auqez2bL1SIxTzp");
-// x("bJ_dvvf979uAcxd");
-// x("P8dUvWByzZrpoq1");
-// x("Fviv_TZwlPwPiUm");
-// x("qDCiAn8qSW9shIO");
-// x("lJdsOgPXW8knE25");
-// x("JXTogBYiNDhfVpT");
-// x("wXX5Pw2jkqsxXWm");
-// x("bxgk4M_MXE9e_zy");
-// x("LQl7642hTAe1NEE");
-// x("5bUXH8DP4gCMH7s");
-// x("lU2WeBmkxaV3M3Z");
-// x("lgfsPbV5V_7VaEb");
-// x("DNY4B3m1u6QLpW6");
-// x("zJw08OMoerlVkkf");
-// x("ZWYbJr6KxYnZHbv");
-// x("xLYOlVRRp_42zXg");
-// x("bZRbevbeOGLHWyT");
-// x("IvwVk59w8Q911zQ");
-// x("KaFRZxKROBnwvrY");
-// x("6UUzdFz7mZGACzc");
-// x("XUWYym57PmxasLB");
-// x("iAISKysC55js8mJ");
-// x("H3f4BWS8wlbJLYL");
-// x("hZULiA9sWgyVsiB");
-// x("V4Nfot1TwYSaPu5");
-// x("TSpSO_VkZXDrQov");
-// x("0YGsRNyQjFRq9Qo");
-// x("JgEzHZJXbMXpIp1");
-// x("YdkYwB8pBEPfqGC");
-// x("BF14ifugSkJivbz");
-// x("mKwJDhv3qL0mboe");
-// x("AhbUWGr4Wqk1MFc");
-// x("JzGc7LcY7Q40q59");
-// x("TOcYo1aEYYOS8DA");
-// x("dUaKYYvJFFyJ9Od");
-// x("D_kDAEf4FFQckMk");
-// x("3oRujdOglEXy81R");
-// x("K_KM8BqDzXfS5Qq");
-// x("4NXbmWCg9Lyjlfo");
-// x("PwAcC5eBHdifjER");
-// x("08270tzx1EvI4f1");
-// x("dHyYR8FirDXlBbI");
-// x("IXMfFoMd8aaNid8");
-// x("duZeAhxREAszRDF");
-// x("pbUcWa075qq3mb3");
+module.exports.majors = majors;
+module.exports.types = types;

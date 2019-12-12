@@ -1,7 +1,6 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 const search = require("../API/search.js");
-// search.getFollowers(5, (users) => {console.log('hahahahaha:  ', users.length)});
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -31,21 +30,23 @@ function sendMail(compID, post) {
     let mail = {
       from: "weseekps@gmail.com", // sender address
       to: emails + ", hendisleem@gmail.com", // list of receivers
-      subject: "posted ✔", // Subject line
+      subject: "FINALLY posted ✔ ", // Subject line
       text: "a new post has been added! grab the chance ^_^", // plain text body
-      html: `<h3>${post.description}</h3>` // html body
+      html: `<h3>${post.description} >>>>> ${post.link}</h3>` // html body
+      //   attachments: [{filename: 'me.jpg', path: '../me.jpg'}]
     };
     transporter.sendMail(mail, (err, mail) => {
       if (err) {
         console.log("err in sending email >>>>>>>>>>> ", err);
       } else {
-        console.log("email is sent !!!!!");
+        console.log("email is sent wow !!!!!");
       }
     });
   });
 }
 
-let p = {
+
+let pst = {
   id: 1,
   comId: 39,
   title: "Perferendis temporibus voluptas.",
@@ -56,6 +57,7 @@ let p = {
   logo: "http://lorempixel.com/640/480/business",
   type: "jop",
   archived: false,
-  read: true
+  read: true,
+  link: "https://www.google.com/"
 };
-sendMail(5, p);
+sendMail(8, pst);
