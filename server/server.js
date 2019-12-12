@@ -4,11 +4,9 @@ const bodyParser = require("body-parser");
 const CR = require("crypto");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const expressUploader = require("express-fileupload");
 
 var app = express();
 app.use(cors());
-app.use(expressUploader());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
