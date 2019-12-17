@@ -3,13 +3,20 @@ import { Grid, Item, Header, Button, Icon } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPost } from "../../actions";
 import WarningMessage from "../helper/warning-message";
+import axios from "axios";
 
 const UserPagePosts = () => {
   const posts: any = useSelector((state: any) => state.posts);
+
+  const scholarshipPosts: any = useSelector(
+    (state: any) => state.posts.scholarship
+  );
+  const jobPosts: any = useSelector((state: any) => state.posts.job);
+  const trainingPosts: any = useSelector((state: any) => state.posts.training);
+
   const dispatch = useDispatch();
   let counter = 0;
   const [isLogged, setIsLogged] = useState(localStorage.getItem("token"));
-  const [booked, setBooked] = useState(false);
   const [showDesc, setShowDesc] = useState(false);
 
   useEffect(() => {
@@ -19,7 +26,9 @@ const UserPagePosts = () => {
   }, []);
 
   const postItems = posts.items ? posts.items : "";
-
+  const postItemsScholarship = scholarshipPosts ? scholarshipPosts : "";
+  const postItemsJob = jobPosts ? jobPosts : "";
+  const postItemsTraining = trainingPosts ? trainingPosts : "";
   // ----------------------------------------- Start Helper Functions----------------------------------------- //
   const resetCounter = () => {
     counter = 0;
@@ -35,24 +44,47 @@ const UserPagePosts = () => {
     }
   };
 
-  const bookmarkHundle = () => {
-    setBooked(!booked);
+  const bookmarkHundle = (index: any) => {
+    console.log(index);
+  };
+  const ChangeFavStatus = (postId: any) => {
+    const data = {
+      userId: localStorage.getItem("userId"),
+      postId: postId
+    };
+    console.log(data);
+
+    //------------------------------------------ Add/Remove the favo ---------------------------------------------//
+
+    // ------------------------------ Work to do --------------------------------------------------
+
+    // Send to the server user id & post id
+    // the server : should check the status
+    //             - false : Add to fav list & change the status
+    //             - true : Add from fav list & change the status
+
+    // axios
+    //   .post(`http://localhost:3004/`, {})
+    //   .then(favPosts => {})
+    //   .catch(err => {
+    //     console.log("inside err favorite", err);
+    //   });
   };
 
   // ----------------------------------------- End Helper Functions----------------------------------------- //
 
-  console.log(postItems);
+  // console.log(postItems);
 
   const Element = (post: any, index: any) => {
-    if (counter < 3) {
+    if (counter < 5) {
       // console.log("index", index);
-      console.log("Post: ", post);
+      // console.log("Post: ", post);
       counter++;
       return (
         <Grid.Column>
           <Item.Group className="post-home-page">
             <Item style={{ padding: "2rem 2rem" }}>
-              <Item.Image size="tiny" src={post.logo} />
+              <Item.Image size="medium" src={post.logo} />
               <Item.Content>
                 <Item.Header>{post.title}</Item.Header>
                 <Item.Meta>Major: {post.major}</Item.Meta>
@@ -69,12 +101,24 @@ const UserPagePosts = () => {
                 ) : (
                   <Item.Description></Item.Description>
                 )}
-                {booked ? (
-                  <Button icon onClick={bookmarkHundle}>
+                {post.favoriteStatus ? (
+                  <Button
+                    icon
+                    onClick={e => {
+                      console.log(post.id);
+                      ChangeFavStatus(post.id);
+                    }}
+                  >
                     <Icon name="bookmark" />
                   </Button>
                 ) : (
-                  <Button icon onClick={bookmarkHundle}>
+                  <Button
+                    icon
+                    onClick={e => {
+                      console.log(post.id);
+                      ChangeFavStatus(post.id);
+                    }}
+                  >
                     <Icon name="bookmark outline" />
                   </Button>
                 )}
@@ -89,27 +133,29 @@ const UserPagePosts = () => {
   return (
     <div style={{ margin: "4rem auto", width: "75%" }}>
       <Header as="h1">Scholarship</Header>
-      <Grid columns={3}>
+      <Grid columns={1}>
         <Grid.Row>
-          {postItems.map((post: any, index: any) => Element(post, index))}
+          {postItemsScholarship.map((post: any, index: any) =>
+            Element(post, index)
+          )}
         </Grid.Row>
       </Grid>
 
       {resetCounter()}
       <Header as="h1">Jobs</Header>
-      <Grid columns={3}>
+      <Grid columns={1}>
         <Grid.Row>
-          {" "}
-          {postItems.map((post: any, index: any) => Element(post, index))}
+          {postItemsJob.map((post: any, index: any) => Element(post, index))}
         </Grid.Row>
       </Grid>
       {resetCounter()}
 
       <Header as="h1">Training</Header>
-      <Grid columns={3}>
+      <Grid columns={1}>
         <Grid.Row>
-          {" "}
-          {postItems.map((post: any, index: any) => Element(post, index))}
+          {postItemsTraining.map((post: any, index: any) =>
+            Element(post, index)
+          )}
         </Grid.Row>
       </Grid>
     </div>

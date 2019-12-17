@@ -9,6 +9,8 @@ const SearchResult = () => {
   const [isLogged, setIsLogged] = useState(localStorage.getItem("token"));
   const [booked, setBooked] = useState(false);
 
+  const [postIdShown, setpostIdShown] = useState(-1);
+
   const [showDesc, setShowDesc] = useState(false);
 
   useEffect(() => {
@@ -40,7 +42,7 @@ const SearchResult = () => {
       <Grid.Column>
         <Item.Group className="post-home-page">
           <Item style={{ padding: "2rem 2rem" }}>
-            <Item.Image size="tiny" src={post.logo} />
+            <Item.Image size="medium" src={post.logo} />
             <Item.Content>
               <Item.Header>{post.title}</Item.Header>
               <Item.Meta>Major: {post.major}</Item.Meta>
@@ -65,9 +67,16 @@ const SearchResult = () => {
                   )}
                 </Item.Description>
               ) : (
-                <Item.Extra as="a" onClick={showDescreptipn}>
-                  Show more information
-                  {showDesc ? <WarningMessage /> : null}
+                <Item.Extra>
+                  <p
+                    onClick={(e: any) => {
+                      console.log(post.id);
+                      setpostIdShown(post.id);
+                    }}
+                  >
+                    <a>Show more information</a>
+                  </p>
+                  {postIdShown === post.id ? <WarningMessage /> : null}
                 </Item.Extra>
               )}
 
@@ -82,7 +91,7 @@ const SearchResult = () => {
   return (
     <div style={{ margin: "4rem auto", width: "75%" }}>
       <Header as="h1">{postItems.length} Result found</Header>
-      <Grid columns={3}>
+      <Grid columns={1}>
         <Grid.Row>{postItems.map((post: any) => Element(post))}</Grid.Row>
       </Grid>
     </div>

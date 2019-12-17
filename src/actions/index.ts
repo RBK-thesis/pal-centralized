@@ -8,7 +8,8 @@ import {
   FETCH_FAVORITE,
   FETCH_COMPANY_POSTS,
   FETCH_COMPANY,
-  FETCH_USERS
+  FETCH_USERS,
+  CHANGE_FAV_STATUS
 } from "./types";
 import axios from "axios";
 

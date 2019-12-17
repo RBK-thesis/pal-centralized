@@ -31,11 +31,7 @@ const HomePageHeader = () => {
             style={{ marginLeft: "15rem" }}
           >
             <Link to="/">
-              <Image
-                size="mini"
-                // src="https://image.shutterstock.com/image-vector/education-logo-template-260nw-1075581467.jpg"
-                src={logo}
-              />
+              <Image size="small" src={logo} />
             </Link>
           </Menu.Item>
         </Container>

@@ -26,6 +26,7 @@ import CompanyHomePage from "./components/company/Company-home-page";
 import CompanyNewPost from "./components/company/company-new-post";
 import UserProfile from "./components/user/UserProfile-page";
 import CompanyProfile from "./components/company/CompanyProfile-page";
+import CompanyEditPost from "./components/company/Company-edit-post";
 
 // import { logout } from "./actions/index";
 // import { signup } from "./actions/index";
@@ -94,6 +95,10 @@ const App: React.FC = () => {
             <Route path="/newpost" exact>
               <CompanyPageHeader />
               <CompanyNewPost />
+            </Route>
+            <Route path="/editpost" exact>
+              <CompanyPageHeader />
+              <CompanyEditPost />
             </Route>
             <Route path="/companyaccount" exact>
               <CompanyPageHeader />

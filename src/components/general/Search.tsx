@@ -7,7 +7,7 @@ import { search } from "../../actions";
 // Majors : Media
 
 // this the Option for Major
-const majorOptions = [
+export const majorOptions = [
   { key: "a1", value: "m1", text: "Achitecture" },
   { key: "a2", value: "m2", text: "Art" },
   { key: "a3", value: "m3", text: "Business" },
@@ -29,7 +29,7 @@ const majorOptions = [
 ];
 
 // this the Option for Type
-const typesOptions = [
+export const typesOptions = [
   { key: "a1", value: "t1", text: "scholarShip" },
   { key: "a2", value: "t2", text: "jop" },
   { key: "a3", value: "t3", text: "training" }

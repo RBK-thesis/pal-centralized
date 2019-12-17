@@ -1,4 +1,4 @@
-import postReducer from "./postReducer";
+import postReducer from "./postReducer.js";
 import loginReducer from "./loginReducer";
 import logoutReducer from "./logoutReducer";
 import isLoggedReducer from "./isLogged";

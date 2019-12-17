@@ -12,7 +12,13 @@ import MessageNegative from "../helper/Message-Negative";
 // Import the options for type & major for the post
 import { typesOptions, majorOptions } from "../general/Search";
 
-const CompanyNewPost = (props: any) => {
+const CompanyEditPost = (props: any) => {
+  // ----------------------------------- get the id for the edit post ---------------------------//
+  const postId = window.location.search.split("=")[1];
+
+  console.log(postId);
+  // console.log(window.location.search);
+
   const users: any = useSelector((state: any) => state.users);
   const dispatch = useDispatch();
 
@@ -146,7 +152,7 @@ const CompanyNewPost = (props: any) => {
         <br></br>
         <br></br>
         <br></br>
-        <Button type="submit">Post</Button>
+        <Button type="submit">Save</Button>
       </Form>
       {msgFlag === "positive" ? <MessageSuccess /> : null}
       {msgFlag === "negative" ? <MessageNegative /> : null}{" "}
@@ -154,4 +160,4 @@ const CompanyNewPost = (props: any) => {
   );
 };
 
-export default CompanyNewPost;
+export default CompanyEditPost;

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown, Header, Popup, Segment } from "semantic-ui-react";
+import { Dropdown, Segment, Header } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFavorite } from "../../actions";
 
-const languageOptions = [{}];
 const FavoriteUserList = () => {
   const favoritePosts: any = useSelector((state: any) => state.favoritePosts);
   const dispatch = useDispatch();
@@ -16,43 +15,39 @@ const FavoriteUserList = () => {
 
   console.log("postsFavItems", postsFavItems);
 
-  // ----------------------------- helper Function -----------------------------------------------
+  // ----------------------------- Start of helper Function -----------------------------------------------
 
-  const onClickHundler = (e: any) => {};
-
-  // ----------------------------- helper Function -----------------------------------------------
+  // ----------------------------- End of  helper Function -----------------------------------------------
 
   const Element = (post: any) => {
     return (
-      <Dropdown.Item text="New">
-        <a target="_blank" href={post.link}>
-          {post ? (
-            <Segment>
-              <Header as="h5">{post.title}</Header>
-              <Header as="h6">Dead Line: {post.deadLine}</Header>
-            </Segment>
-          ) : (
-            ""
-          )}
-        </a>
-      </Dropdown.Item>
+      <a target="_blank" href={post.link}>
+        {post ? (
+          <Segment>
+            <p style={{ fontWeight: 900, color: "black" }}>{post.title}</p>
+            <p>Dead Line: {post.deadLine}</p>
+          </Segment>
+        ) : (
+          ""
+        )}
+      </a>
     );
   };
 
   return (
     <div>
-      {/*  */}
       <Dropdown className="icon" icon="bookmark">
-        <Dropdown.Menu>
-          {/* {postsFavItems.length === 0 ? (
-            console.log(postsFavItems.length)
-          ) : (
+        {postsFavItems.length > 0 ? (
+          <Dropdown.Menu>
+            {postsFavItems.map((post: any) => Element(post))}
+          </Dropdown.Menu>
+        ) : (
+          <Dropdown.Menu>
             <Segment>
-              <Header as="h5">Empty Favorite List</Header>
+              <Header as="h6">Empty Favorite List</Header>
             </Segment>
-          )} */}
-          {postsFavItems.map((post: any) => Element(post))}
-        </Dropdown.Menu>
+          </Dropdown.Menu>
+        )}
       </Dropdown>
     </div>
   );

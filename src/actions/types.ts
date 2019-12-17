@@ -9,3 +9,4 @@ export const FETCH_COMPANY_POSTS = "FETCH_COMPANY_POSTS";
 export const NEW_POST = "NEW_POST";
 export const FETCH_COMPANY = "NEW_POST";
 export const FETCH_USERS = "NEW_POST";
+export const CHANGE_FAV_STATUS = "NEW_POST";

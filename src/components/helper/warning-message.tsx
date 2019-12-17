@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Message } from "semantic-ui-react";
 
 const WarningMessage = () => (
@@ -7,7 +8,11 @@ const WarningMessage = () => (
       You must Login before you can see more info!
     </Message.Header>
     <p>
-      Visit our <em>Login page</em>{" "}
+      Visit our{" "}
+      <em>
+        {"  "}
+        <Link to="/login">Login page</Link>
+      </em>{" "}
     </p>
   </Message>
 );

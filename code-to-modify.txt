@@ -1,0 +1,8 @@
+Work in server :
+
+- User page posts :   line 50 there is a comment
+
+- Company new Post :
+
+    - modify the url post request 
+    

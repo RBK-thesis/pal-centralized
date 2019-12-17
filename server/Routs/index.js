@@ -60,7 +60,7 @@ router.post("/articles/addPosts", (req, res) => {
       //----------------- if created return 201----------//
       //-------------------------------------------------//
 
-      EmailSender(comID, post);
+      // EmailSender(comID, post);
       //-------------------------------------------------//
       //---------Sending Email to all follwers ----------//
       //-------------------------------------------------//
