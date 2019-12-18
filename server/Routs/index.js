@@ -125,7 +125,7 @@ router.post("/articles/addPosts", (req, res) => {
   //---------- takes object Post as (post and) , company id as (comID) ------//
   //-------------------------------------------------------------------------//
   var post = req.body.newPost;
-  var comID = req.body.newPost["comID"];
+  var comID = req.body.comId;
   //-------------------------------------------//
   //---------------add an ID to post-----------//
   //-------------------------------------------//
@@ -139,14 +139,30 @@ router.post("/articles/addPosts", (req, res) => {
       //----------------- if created return 201----------//
       //-------------------------------------------------//
 
-      EmailSender(comID, post);
-      //-------------------------------------------------//
-      //---------Sending Email to all follwers ----------//
-      //-------------------------------------------------//
-      res
-        .status(201)
-        .send("Sucess")
-        .end();
+      //----------------------------------------//
+      //------------update operation------------//
+      //----------------------------------------//
+      db.Company.updateOne(
+        { id: req.body.comId },
+        { $push: { postsList: post["id"] } },
+        (error, result) => {
+          if (error) {
+            res
+              .status(500)
+              .send("An Error Has Occurred during processing data")
+              .end();
+          } else {
+            EmailSender.sendMail(comID, post);
+            //-------------------------------------------------//
+            //---------Sending Email to all follwers ----------//
+            //-------------------------------------------------//
+            res
+              .status(201)
+              .send("Sucess")
+              .end();
+          }
+        }
+      );
     })
     .catch(error => {
       //-------------------------------------------------//
@@ -198,23 +214,7 @@ router.post("/articles/updatePost", (req, res) => {
   //------------update operation------------//
   //----------------------------------------//
   if (req.body.op === "update") {
-    db.Post.updateOne({ id: req.body.id })
-      .then(result => {
-        res
-          .status(201)
-          .send("Successfully updated")
-          .end();
-      })
-      .catch(error => {
-        res
-          .status(500)
-          .send("An Error Has Occurred during processing data")
-          .end();
-      });
-  }
-
-  if (req.body.op === "archive") {
-    db.Post.create(req.body.Obj)
+    db.Post.updateOne({ id: req.body.id }, req.body.udating)
       .then(result => {
         res
           .status(201)
@@ -229,8 +229,9 @@ router.post("/articles/updatePost", (req, res) => {
       });
   }
 });
-
-//----------------------- Update Company info -------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+//-------------------------------- Update Company info or user ----------------------------------//
+//-----------------------------------------------------------------------------------------------//
 
 router.post("user/updateProfile", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -288,7 +289,7 @@ router.post("user/updateProfile", (req, res) => {
       otherLink: req.body.otherLink,
       mobileNumber: req.body.mobileNumber
     };
-    db.Company.updateOne({ id: req.body.id })
+    db.Company.updateOne({ id: req.body.id }, Company)
       .then(reslt => {
         res
           .status(201)
@@ -444,7 +445,17 @@ router.get("/articles/favoriteList", (req, res) => {
         .end();
     });
 });
-//---------------------------Get API Values ----------------------------------------------------------------------//
+
+//--------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------sends an email to the messager---------------------------------------//
+//--------------------------------------------------------------------------------------------------------------//
+router.post("/contact", (req, res) => {
+  EmailSender.sendMsg(req.body.name, req.body.email, req.body.msg);
+});
+
+//----------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------------Get API Values --------------------------------------------------//
+//----------------------------------------------------------------------------------------------------------------//
 router.get("/articles/API", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   // Request methods you wish to allow
@@ -619,7 +630,7 @@ router.get("/articles", (req, res) => {
   var fiter = req.query;
   if (Object.keys(req.query).length !== 0) {
     fiter["archived"] = false;
-    db.Post.find({ comId: req.query.id }, (error, post) => {
+    db.Post.find({ comId: req.query.id, archived: false }, (error, post) => {
       if (error) {
         res.status(500).send("an error accured while connecting to data");
       }
