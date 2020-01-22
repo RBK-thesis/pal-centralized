@@ -36,4 +36,10 @@ to serve other people who's searching for any training, scholarship, job and do 
 
 - start both severs for the react app and main server for data exchange
 
+## Whats next ##
+- share topics using facebook , google+ , twitter.
+- allow users to contact with each other using messages.
+- allow the companies to connect with their candidate directly throw our application .
+- allow users to apply directly to the opportunity.
+
  
