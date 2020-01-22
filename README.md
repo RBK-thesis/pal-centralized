@@ -5,7 +5,7 @@ https://seeekps.herokuapp.com/
 its a finale project in the RBK institution to solve or to make a helpful solution,and applying a full stack web application and mobile app using react and react app.
 
 ## Summary ##
-its a full stack web application ad mobile application , all component has its own concern and its own purpose and also its own data which mean that if a component does not exist it will no affect the other parts.
+it's a full-stack web application and mobile application, all component has its own concern and its own purpose and also its own data which mean that if a component does not exist it will not affect the other parts.
 
 ## Problem ##
 to serve other people who's searching for any training, scholarship, job and do not want to search the whole web for that we did an application that gathers all of these information and sorts them depending of its group then the user can make another sorting operation depending on other criteria, for a lot of people jumping from site to site to find some useful information takes a lot of time and effort, so to centralized all needed information about those subject in one app is the perfect solution.
