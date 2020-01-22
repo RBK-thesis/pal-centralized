@@ -1,45 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Seek.ps #
+https://seeekps.herokuapp.com/
 
-## Available Scripts
+## Introduction ##
+its a finale project in the RBK institution to solve or to make a helpful solution,and applying a full stack web application and mobile app using react and react app.
 
-In the project directory, you can run:
+## Summary ##
+its a full stack web application ad mobile application , all component has its own concern and its own purpose and also its own data which mean that if a component does not exist it will no affect the other parts.
 
-### `npm start`
+## Problem ##
+to serve other people who's searching for any training, scholarship, job and do not want to search the whole web for that we did an application that gathers all of these information and sorts them depending of its group then the user can make another sorting operation depending on other criteria, for a lot of people jumping from site to site to find some useful information takes a lot of time and effort, so to centralized all needed information about those subject in one app is the perfect solution.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Solution ##
+  - create an account for each user to personalized these interests that will be notified with.
 
-### `npm test`
+  - gather all needed information and sorting it depending on its category first.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - apply a search algorithm to the user-specific information just in one place.
 
-### `npm run build`
+  - send a notification to the user and save's any subject he wants for later use or review.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  - follow the institution for updates.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+  - allow institutions to create announcements for upcoming Opportunities.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - allow companies or institutions to see the user profile and CV for applicant info.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## How to Get Started ##
+- fork the project
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- clone it.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- install npm packages using (npm install). for each module and for the proxy module
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- start both severs for the react app and main server for data exchange
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-"# ci" 
+ 
