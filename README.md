@@ -32,7 +32,7 @@ to serve other people who's searching for any training, scholarship, job and do 
 
 - clone it.
 
-- install npm packages using (npm install). for each module and for the proxy module
+- install npm packages using (npm install). 
 
 - start both severs for the react app and main server for data exchange
 
